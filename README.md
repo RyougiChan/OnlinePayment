@@ -15,7 +15,7 @@ This project is further Java encapsulation for various online payment channels, 
 
 ## Developer Tips
 
-1. `java.lang.ClassNotFoundException: org.springframework.web.context.ContextLoaderListener`
+> `java.lang.ClassNotFoundException: org.springframework.web.context.ContextLoaderListener`
 
     This is a Exception of Tomcat server.
 
