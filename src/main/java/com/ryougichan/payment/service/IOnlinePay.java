@@ -1,12 +1,13 @@
 package com.ryougichan.payment.service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * Online Payment Abstract Interface
  */
 public interface IOnlinePay {
-    
+
     /**
      * Dispatch payment request to third-party payment sever
      *
@@ -22,7 +23,7 @@ public interface IOnlinePay {
      *
      * @param request The javax.servlet.http.HttpServletRequest object itself
      * @return A notify message to tell third-party payment sever that we have received this notify callback
-     * @deprecated The method defined here is just as example because there are specific business logic included in usual
+     * @deprecated The method defined here is for example only because there are specific business logic included in usual
      */
     String receivePaymentNotify(HttpServletRequest request);
 
@@ -42,7 +43,7 @@ public interface IOnlinePay {
      *
      * @param request The javax.servlet.http.HttpServletRequest object itself
      * @return A notify message to tell third-party payment sever that we have received this notify callback
-     * @deprecated The method defined here is just as example because there are specific business logic included in usual
+     * @deprecated The method defined here is for example only because there are specific business logic included in usual
      */
     String receiveRefundNotify(HttpServletRequest request);
 
@@ -74,4 +75,12 @@ public interface IOnlinePay {
      * @return Return whatever the third-party payment sever return
      */
     String refundQuery(String orderNumber, String tradeId, String refundId);
+
+    /**
+     * Dispatch download bill request to access historical transaction list from third-party payment sever
+     * @param billDate Bill time
+     * @param billType Bill type
+     * @return Return whatever the third-party payment sever return
+     */
+    String downloadBill(Date billDate, String billType);
 }
