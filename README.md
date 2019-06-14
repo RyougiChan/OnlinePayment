@@ -11,16 +11,22 @@ This project is further Java encapsulation for various online payment channels, 
 - Tomcat 9.0.16
 - Spring 4.3.18
 
+## Dependency Required
+
+- [alipay-sdk](https://docs.open.alipay.com/270/106291/)
+- [wxpay-sdk](https://pay.weixin.qq.com/wiki/doc/api/external/native.php?chapter=11_1)
+
 ## Project Structure
 
 ## Developer Tips
 
 > `java.lang.ClassNotFoundException: org.springframework.web.context.ContextLoaderListener`
 
-    This is a Exception of Tomcat server.
+This is a Exception of Tomcat server.
 
-    Solution:
-    Add dependencies to **deployment** assembly. [See also](https://stackoverflow.com/questions/6210757/java-lang-classnotfoundexception-org-springframework-web-context-contextloaderl)
+**Solution:**
+
+Add dependencies to **deployment** assembly. [See Also](https://stackoverflow.com/questions/6210757/java-lang-classnotfoundexception-org-springframework-web-context-contextloaderl)
 
 ## Declaration
 
