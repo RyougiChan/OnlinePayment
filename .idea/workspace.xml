@@ -7,12 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="73588f71-d34c-47f1-b991-abf3621737da" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/IOnlinePay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/IOnlinePay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/impl/Alipay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/impl/Alipay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/impl/WeChatPay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/impl/WeChatPay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/util/PayUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/util/PayUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/controller/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/entity/AlipayConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/entity/AlipayConfig.java" afterDir="false" />
     </list>
     <list id="6bbf00f6-c449-475e-9033-728f9c895c74" name="Adding Alipay and WeChat Pay SDK dependence as well as their own config file" comment="Adding Alipay and WeChat Pay SDK dependence as well as their own config file" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -33,10 +32,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/ryougichan/payment/controller/PaymentController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
-              <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
+            <state relative-caret-position="423">
+              <caret line="53" column="31" lean-forward="true" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#917#918#0" expanded="true" />
+                <element signature="e#957#958#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -45,51 +46,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/IOnlinePay.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="83" column="50" lean-forward="true" selection-start-line="83" selection-start-column="50" selection-end-line="83" selection-end-column="50" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="98">
+              <caret line="62" column="50" selection-start-line="62" selection-start-column="50" selection-end-line="62" selection-end-column="50" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/impl/Alipay.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
-              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#pay#0;class#Alipay#0" />
-                <element signature="e#5085#5086#0" expanded="true" />
-                <element signature="e#5112#5113#0" expanded="true" />
-                <element signature="method#refund#0;class#Alipay#0" />
-                <element signature="e#7958#7959#0" expanded="true" />
-                <element signature="e#7985#7986#0" expanded="true" />
-                <element signature="method#query#0;class#Alipay#0" />
-                <element signature="method#close#0;class#Alipay#0" />
-                <element signature="method#refundQuery#0;class#Alipay#0" />
-                <element signature="method#downloadBill#0;class#Alipay#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/impl/WeChatPay.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1878">
-              <caret line="262" column="65" selection-start-line="262" selection-start-column="65" selection-end-line="262" selection-end-column="65" />
+            <state relative-caret-position="212">
+              <caret line="125" column="54" selection-start-line="125" selection-start-column="7" selection-end-line="125" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#WeChatPay#0;class#WeChatPay#0" />
                 <element signature="method#pay#0;class#WeChatPay#0" />
-                <element signature="e#5487#5488#0" expanded="true" />
-                <element signature="e#5514#5515#0" expanded="true" />
                 <element signature="method#refund#0;class#WeChatPay#0" />
-                <element signature="e#7552#7553#0" expanded="true" />
-                <element signature="e#7579#7580#0" expanded="true" />
                 <element signature="method#query#0;class#WeChatPay#0" />
                 <element signature="method#close#0;class#WeChatPay#0" />
                 <element signature="method#refundQuery#0;class#WeChatPay#0" />
@@ -100,26 +72,26 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ryougichan/payment/util/PayUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="112" column="64" selection-start-line="112" selection-start-column="60" selection-end-line="112" selection-end-column="64" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#getRealIpAddress#0;class#PayUtil#0" />
-              </folding>
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="95">
+                <caret line="5" column="51" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="703">
-                <caret line="37" selection-start-line="37" selection-end-line="37" />
-              </first_editor>
-              <second_editor />
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/ryougichan/payment/entity/AlipayConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="12" column="42" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="42" />
+              <folding>
+                <element signature="e#1590#1591#0" expanded="true" />
+                <element signature="e#1622#1623#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -162,15 +134,15 @@
         <option value="$PROJECT_DIR$/web/WEB-INF/dispatcher-servlet.xml" />
         <option value="$PROJECT_DIR$/web/WEB-INF/views/payment/index.jsp" />
         <option value="$PROJECT_DIR$/web/index.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/controller/PaymentController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/impl/IOnlinePay.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/entity/WeChatPayConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/entity/AlipayConfig.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/util/PayUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/impl/Alipay.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/IOnlinePay.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/impl/WeChatPay.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/controller/PaymentController.java" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/entity/AlipayConfig.java" />
       </list>
     </option>
   </component>
@@ -182,8 +154,8 @@
     <option name="CUSTOM_FILTER" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="233" />
-    <option name="y" value="54" />
+    <option name="x" value="83" />
+    <option name="y" value="13" />
     <option name="width" value="1669" />
     <option name="height" value="1000" />
   </component>
@@ -192,6 +164,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -233,7 +206,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="payment" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="OnlinePayment" type="b2602c69:ProjectViewProjectNode" />
@@ -265,7 +238,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -384,7 +356,8 @@
       <updated>1560388750578</updated>
       <workItem from="1560388789767" duration="8445000" />
       <workItem from="1560413065808" duration="3495000" />
-      <workItem from="1560733452843" duration="9918000" />
+      <workItem from="1560733452843" duration="12069000" />
+      <workItem from="1560755010671" duration="847000" />
     </task>
     <task id="LOCAL-00001" summary="Adding Alipay and WeChat Pay SDK dependence as well as their own config file">
       <created>1560483474535</created>
@@ -397,13 +370,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37577000" />
+    <option name="totallyTimeSpent" value="40575000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="233" y="54" width="1669" height="1000" extended-state="0" />
+    <frame x="83" y="13" width="1669" height="1000" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4989605" visible="true" weight="0.30205098" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4989605" visible="true" weight="0.30578" />
       <window_info id="Structure" order="1" sideWeight="0.5010395" side_tool="true" weight="0.2563966" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -426,7 +399,7 @@
       <window_info anchor="bottom" id="Messages" order="12" weight="0.3290993" />
       <window_info anchor="bottom" id="Java Enterprise" order="13" />
       <window_info anchor="bottom" id="Database Changes" order="14" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="15" visible="true" weight="0.30369514" />
+      <window_info anchor="bottom" id="Version Control" order="15" visible="true" weight="0.30369514" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24946696" />
@@ -524,17 +497,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ryougichan/payment/entity/AlipayConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-304">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding>
-            <element signature="e#1590#1591#0" expanded="true" />
-            <element signature="e#1622#1623#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/views/payment/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
@@ -542,30 +504,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="703">
-            <caret line="37" selection-start-line="37" selection-end-line="37" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/lib/wxpay-sdk-3.0.9.jar!/com/github/wxpay/sdk/WXPay.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="191">
           <caret line="289" column="31" selection-start-line="289" selection-start-column="31" selection-end-line="289" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ryougichan/payment/controller/PaymentController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -587,17 +529,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ryougichan/payment/util/PayUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="112" column="64" selection-start-line="112" selection-start-column="60" selection-end-line="112" selection-end-column="64" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getRealIpAddress#0;class#PayUtil#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://D:/Program Files/Java/jdk1.8.0_60/src.zip!/java/util/Date.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="363">
@@ -611,12 +542,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/IOnlinePay.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ryougichan/payment/controller/PaymentController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="83" column="50" lean-forward="true" selection-start-line="83" selection-start-column="50" selection-end-line="83" selection-end-column="50" />
+        <state relative-caret-position="423">
+          <caret line="53" column="31" lean-forward="true" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#917#918#0" expanded="true" />
+            <element signature="e#957#958#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -624,15 +557,11 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/impl/Alipay.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="241">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#pay#0;class#Alipay#0" />
-            <element signature="e#5085#5086#0" expanded="true" />
-            <element signature="e#5112#5113#0" expanded="true" />
             <element signature="method#refund#0;class#Alipay#0" />
-            <element signature="e#7958#7959#0" expanded="true" />
-            <element signature="e#7985#7986#0" expanded="true" />
             <element signature="method#query#0;class#Alipay#0" />
             <element signature="method#close#0;class#Alipay#0" />
             <element signature="method#refundQuery#0;class#Alipay#0" />
@@ -641,23 +570,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/IOnlinePay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="62" column="50" selection-start-line="62" selection-start-column="50" selection-end-line="62" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ryougichan/payment/util/PayUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="112" column="64" selection-start-line="112" selection-start-column="60" selection-end-line="112" selection-end-column="64" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getRealIpAddress#0;class#PayUtil#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/impl/WeChatPay.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1878">
-          <caret line="262" column="65" selection-start-line="262" selection-start-column="65" selection-end-line="262" selection-end-column="65" />
+        <state relative-caret-position="212">
+          <caret line="125" column="54" selection-start-line="125" selection-start-column="7" selection-end-line="125" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#WeChatPay#0;class#WeChatPay#0" />
             <element signature="method#pay#0;class#WeChatPay#0" />
-            <element signature="e#5487#5488#0" expanded="true" />
-            <element signature="e#5514#5515#0" expanded="true" />
             <element signature="method#refund#0;class#WeChatPay#0" />
-            <element signature="e#7552#7553#0" expanded="true" />
-            <element signature="e#7579#7580#0" expanded="true" />
             <element signature="method#query#0;class#WeChatPay#0" />
             <element signature="method#close#0;class#WeChatPay#0" />
             <element signature="method#refundQuery#0;class#WeChatPay#0" />
             <element signature="method#downloadBill#0;class#WeChatPay#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="95">
+            <caret line="5" column="51" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ryougichan/payment/entity/AlipayConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="42" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="42" />
+          <folding>
+            <element signature="e#1590#1591#0" expanded="true" />
+            <element signature="e#1622#1623#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -10,7 +10,7 @@ public class AlipayConfig {
      */
     private String privateKey = "";
     /**
-     * Alipay public key(Be careful, not RSA_PUBLIC_KEY)
+     * Alipay public key(Be careful, not merchant RSA_PUBLIC_KEY)
      */
     private String alipayPublicKey = "";
     /**
