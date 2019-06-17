@@ -1,7 +1,6 @@
 package com.ryougichan.payment.service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 /**
  * Online Payment Abstract Interface
@@ -82,5 +81,5 @@ public interface IOnlinePay {
      * @param billType Bill type
      * @return Return whatever the third-party payment server return
      */
-    String downloadBill(Date billDate, String billType);
+    String downloadBill(String billDate, String billType);
 }
