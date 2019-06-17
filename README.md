@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is further Java encapsulation for various online payment channels, including **Alipay**, **WeChat Pay** so far.
+This project is further Java encapsulation for various online payment channels, including **Alipay**, **WeChat Pay**, **PayPal** so far.
 
 ## Tech Support
 
@@ -11,12 +11,12 @@ This project is further Java encapsulation for various online payment channels, 
 - Tomcat 9.0.16
 - Spring 4.3.18
 
-## Dependency Required
+## Dependencies Required
 
-- [alipay-sdk](https://docs.open.alipay.com/270/106291/)
+- [alipay-sdk](https://docs.open.alipay.com/54/103419)
 - [wxpay-sdk](https://pay.weixin.qq.com/wiki/doc/api/external/native.php?chapter=11_1)
 
-## Project Structure
+## Getting Start
 
 ## Developer Tips
 
