@@ -1,8 +1,11 @@
 package com.ryougichan.payment.util;
 
+import com.google.gson.Gson;
+
 import javax.servlet.http.HttpServletRequest;
 
 public class PayUtil {
+    public static Gson gson;
     /**
      * Get real IP address of access client
      *
@@ -36,5 +39,10 @@ public class PayUtil {
             ip = request.getRemoteAddr();
         }
         return ip;
+    }
+
+    public static Gson getGson() {
+        if(null == gson) gson = new Gson();
+        return gson;
     }
 }

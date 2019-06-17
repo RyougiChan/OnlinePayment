@@ -30,5 +30,6 @@
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
     <orderEntry type="library" name="alipay-sdk-java" level="project" />
     <orderEntry type="library" name="wxpay-sdk-3.0.9" level="project" />
+    <orderEntry type="library" name="gson-2.8.5" level="project" />
   </component>
 </module>
