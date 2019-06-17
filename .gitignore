@@ -27,4 +27,3 @@ hs_err_pid*
 /project/**/*.iml
 /project/**/target
 /project/**/out
-/project/**/src/main/java/com/ryougichan/payment/entity/*Config.java

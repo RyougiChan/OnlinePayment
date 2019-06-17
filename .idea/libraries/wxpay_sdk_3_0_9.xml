@@ -2,6 +2,12 @@
   <library name="wxpay-sdk-3.0.9">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/wxpay-sdk-3.0.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-logging-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-simple-1.7.21.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.21.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/httpclient-4.5.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/httpcore-4.4.6.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

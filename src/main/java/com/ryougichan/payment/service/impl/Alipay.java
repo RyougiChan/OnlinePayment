@@ -24,7 +24,7 @@ public class Alipay implements IOnlinePay {
     /**
      * Default constructor
      */
-    void Alipay() {
+    public Alipay() {
         alipayConfig = PayUtil.getAlipayConfig();
         client = PayUtil.getAlipayClient();
     }

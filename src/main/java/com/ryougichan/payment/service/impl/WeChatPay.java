@@ -20,9 +20,9 @@ public class WeChatPay implements IOnlinePay {
     WeChatPayConfig config;
     WXPay wxpay;
 
-    void WeChatPay() {
+    public WeChatPay() {
+        gson = PayUtil.getGson();
         try {
-            gson = PayUtil.getGson();
             config = PayUtil.getWeChatPayConfig();
             wxpay = PayUtil.getWXPay();
         } catch (Exception e) {

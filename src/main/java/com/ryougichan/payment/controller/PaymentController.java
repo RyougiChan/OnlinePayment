@@ -24,10 +24,6 @@ public class PaymentController {
 
     Gson gson;
 
-    void PaymentController() {
-        gson = PayUtil.getGson();
-    }
-
     /**
      * Payment index page
      * @return Index .jsp page
@@ -44,10 +40,11 @@ public class PaymentController {
      */
     @RequestMapping(value = "/pay", method = RequestMethod.POST)
     public void pay(@RequestBody String params, HttpServletResponse response) {
+        gson = PayUtil.getGson();
         JsonObject paramJson = gson.fromJson(params, JsonObject.class);
-        String payType = paramJson.get("payType").toString();
-        String payWay = paramJson.get("payWay").toString();
-        String orderId = paramJson.get("orderId").toString();
+        String payType = paramJson.get("payType").getAsString();
+        String payWay = paramJson.get("payWay").getAsString();
+        String orderId = paramJson.get("orderId").getAsString();
 
         IOnlinePay onlinePay;
         if(payType.equals("alipay")) {
@@ -86,8 +83,8 @@ public class PaymentController {
     @RequestMapping(value = "/refund", method = RequestMethod.POST)
     public void refund(@RequestBody String params, HttpServletResponse response) {
         JsonObject jo = gson.fromJson(params, JsonObject.class);
-        String payType = jo.get("payType").toString();
-        String orderId = jo.get("orderId").toString();
+        String payType = jo.get("payType").getAsString();
+        String orderId = jo.get("orderId").getAsString();
 
         IOnlinePay onlinePay;
         if(payType.equals("alipay")) {
@@ -125,9 +122,9 @@ public class PaymentController {
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     public void query(@RequestBody String params, HttpServletResponse response) {
         JsonObject jo = gson.fromJson(params, JsonObject.class);
-        String payType = jo.get("payType").toString();
-        String tradeId = jo.get("tradeId").toString();
-        String orderId = jo.get("orderId").toString();
+        String payType = jo.get("payType").getAsString();
+        String tradeId = jo.get("tradeId").getAsString();
+        String orderId = jo.get("orderId").getAsString();
 
         IOnlinePay onlinePay;
         if(payType.equals("alipay")) {
@@ -160,9 +157,9 @@ public class PaymentController {
     @RequestMapping(value = "/close", method = RequestMethod.POST)
     public void close(@RequestBody String params, HttpServletResponse response) {
         JsonObject jo = gson.fromJson(params, JsonObject.class);
-        String payType = jo.get("payType").toString();
-        String tradeId = jo.get("tradeId").toString();
-        String orderId = jo.get("orderId").toString();
+        String payType = jo.get("payType").getAsString();
+        String tradeId = jo.get("tradeId").getAsString();
+        String orderId = jo.get("orderId").getAsString();
 
         IOnlinePay onlinePay;
         if(payType.equals("alipay")) {
@@ -195,10 +192,10 @@ public class PaymentController {
     @RequestMapping(value = "/refundquery", method = RequestMethod.POST)
     public void refundQuery(@RequestBody String params, HttpServletResponse response) {
         JsonObject jo = gson.fromJson(params, JsonObject.class);
-        String payType = jo.get("payType").toString();
-        String tradeId = jo.get("tradeId").toString();
-        String orderId = jo.get("orderId").toString();
-        String refundId = jo.get("refundId").toString();
+        String payType = jo.get("payType").getAsString();
+        String tradeId = jo.get("tradeId").getAsString();
+        String orderId = jo.get("orderId").getAsString();
+        String refundId = jo.get("refundId").getAsString();
 
         IOnlinePay onlinePay;
         if(payType.equals("alipay")) {
@@ -213,6 +210,41 @@ public class PaymentController {
             response.setContentType("application/json; charset=utf-8");
             writer = response.getWriter();
             writer.print(payResult);
+        }catch(IOException e) {
+            // TODO: Logging
+        }finally {
+            if (null != writer) {
+                writer.flush();
+                writer.close();
+            }
+        }
+    }
+
+    /**
+     * Download bill request
+     * @param params Request parameters, content type: application/json
+     * @param response Response
+     */
+    @RequestMapping(value = "/downloadbill", method = RequestMethod.POST)
+    public void downloadBill(@RequestBody String params, HttpServletResponse response) {
+        JsonObject jo = gson.fromJson(params, JsonObject.class);
+        String payType = jo.get("payType").getAsString();
+        String billType = jo.get("billType").getAsString();
+        String billDate = jo.get("billDate").getAsString();
+
+        IOnlinePay onlinePay;
+        if(payType.equals("alipay")) {
+            onlinePay = new Alipay();
+        } else {
+            onlinePay = new WeChatPay();
+        }
+        String result = onlinePay.downloadBill(billDate, billType);
+
+        PrintWriter writer = null;
+        try{
+            response.setContentType("application/json; charset=utf-8");
+            writer = response.getWriter();
+            writer.print(result);
         }catch(IOException e) {
             // TODO: Logging
         }finally {

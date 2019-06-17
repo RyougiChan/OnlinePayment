@@ -15,13 +15,20 @@
             text-align: center;
         }
         #container {
-            width: 60%;
+            width: 80%;
             margin: 100px auto;
-            text-align: center;
+            overflow: auto;
         }
-        #result {
+        #pay-result {
             margin-top: 60px;
             color: #ff0000;
+        }
+        #request-list {
+            list-style: none;
+        }
+        #request-list #request-list-item {
+            float: left;
+            width: 40%;
         }
     </style>
 </head>
@@ -30,26 +37,31 @@
         <h1>Payment Test Page</h1>
     </header>
     <main id="container">
-        <div>
-            <label for="orderId">Order ID</label>
-            <input type="text" id="orderId" name="orderId" placeholder="Order ID" value="20190806125346" />
-        </div>
-        <div>
-            <label for="wechat-pay">WeChat Pay</label>
-            <input type="radio" id="wechat-pay" name="payType" value="wechatPay" checked />
-            <label for="alipay">Alipay</label>
-            <input type="radio" id="alipay" name="payType" value="alipay" />
-        </div>
-        <div>
-            <label for="pc">QR Code Payment</label>
-            <input type="radio" id="pc" name="payWay" value="pc" checked />
-            <label for="h5">In-App Web-based Payment(H5)</label>
-            <input type="radio" id="h5" name="payWay" value="h5" /></div>
-        <div>
-        <button id="pay">Pay</button></div>
-        <div id="result">
+        <ul id="request-list">
+            <li id="request-list-item">
+                <h2>Payment Request</h2>
+                <div>
+                    <label for="orderId">Order ID</label>
+                    <input type="text" id="orderId" name="orderId" placeholder="Order ID" value="20190806125346" />
+                </div>
+                <div>
+                    <label for="wechat-pay">WeChat Pay</label>
+                    <input type="radio" id="wechat-pay" name="payType" value="wechatPay" checked />
+                    <label for="alipay">Alipay</label>
+                    <input type="radio" id="alipay" name="payType" value="alipay" />
+                </div>
+                <div>
+                    <label for="pc">QR Code Payment</label>
+                    <input type="radio" id="pc" name="payWay" value="pc" checked />
+                    <label for="h5">In-App Web-based Payment(H5)</label>
+                    <input type="radio" id="h5" name="payWay" value="h5" /></div>
+                <div>
+                    <button id="pay">Pay</button></div>
+                <div id="pay-result">
 
-        </div>
+                </div>
+            </li>
+        </ul>
     </main>
     <footer>
         <p>Released under the <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a></p>
@@ -62,14 +74,14 @@
                 url: "/payment/payment/pay",
                 type: "post",
                 data: JSON.stringify({
-                    payType: $('input[name="payType"]').val(),
-                    payWay: $('input[name="payWay"]').val(),
+                    payType: $('input[name="payType"]:checked').val(),
+                    payWay: $('input[name="payWay"]:checked').val(),
                     orderId: $('input[name="orderId"]').val()
                 }),
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     console.log(data);
-                    $('#result').html(data);
+                    $('#pay-result').html(data);
                 },
                 error: function (err) {
                     console.log(err);
