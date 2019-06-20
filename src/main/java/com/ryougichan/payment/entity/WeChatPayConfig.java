@@ -51,12 +51,12 @@ public class WeChatPayConfig extends WXPayConfig {
     private String refundNotifyURL = "https://xxx.com/pay/wxpay/refundnotify";
 
     /**
-     * WeChat Pay payment way, `TRADE_TYPE_NATIVE`: QR Code Payment
+     * WeChat Pay payment way, <code>TRADE_TYPE_NATIVE</code>: QR Code Payment
      */
     public static final String TRADE_TYPE_NATIVE = "NATIVE";
 
     /**
-     * WeChat Pay payment way, `PRODUCT_CODE_H5`: In-App Web-based Payment(H5 Payment)
+     * WeChat Pay payment way, <code>PRODUCT_CODE_H5</code>: In-App Web-based Payment(H5 Payment)
      */
     public static final String TRADE_TYPE_MWEB = "MWEB";
 

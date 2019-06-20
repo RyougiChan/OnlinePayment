@@ -38,11 +38,11 @@ public class AlipayConfig {
      */
     private String signType = "RSA2";
     /**
-     * Alipay payment way, `FAST_INSTANT_TRADE_PAY`: QR Code Payment
+     * Alipay payment way, <code>FAST_INSTANT_TRADE_PAY</code>: QR Code Payment
      */
     public static final String PRODUCT_CODE_PAGE = "FAST_INSTANT_TRADE_PAY";
     /**
-     * Alipay payment way, `PRODUCT_CODE_H5`: In-App Web-based Payment(H5 Payment)
+     * Alipay payment way, <code>PRODUCT_CODE_H5</code>: In-App Web-based Payment(H5 Payment)
      */
     public static final String PRODUCT_CODE_H5 = "QUICK_WAP_WAY";
 

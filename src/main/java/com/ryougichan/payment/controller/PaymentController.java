@@ -1,5 +1,9 @@
 package com.ryougichan.payment.controller;
 
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.internal.util.AlipaySignature;
+import com.github.wxpay.sdk.WXPay;
+import com.github.wxpay.sdk.WXPayUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ryougichan.payment.entity.AlipayConfig;
@@ -17,12 +21,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/payment")
 public class PaymentController {
 
     Gson gson;
+
+    public PaymentController() {
+        gson = PayUtil.getGson();
+    }
 
     /**
      * Payment index page
@@ -40,7 +52,6 @@ public class PaymentController {
      */
     @RequestMapping(value = "/pay", method = RequestMethod.POST)
     public void pay(@RequestBody String params, HttpServletResponse response) {
-        gson = PayUtil.getGson();
         JsonObject paramJson = gson.fromJson(params, JsonObject.class);
         String payType = paramJson.get("payType").getAsString();
         String payWay = paramJson.get("payWay").getAsString();
@@ -60,7 +71,7 @@ public class PaymentController {
         if(null != payResult) {
             PrintWriter writer = null;
             try{
-                response.setContentType("text/html; charset=utf-8");
+                response.setContentType("text/plain; charset=utf-8");
                 writer = response.getWriter();
                 writer.print(payResult);
             }catch(IOException e) {
@@ -85,6 +96,9 @@ public class PaymentController {
         JsonObject jo = gson.fromJson(params, JsonObject.class);
         String payType = jo.get("payType").getAsString();
         String orderId = jo.get("orderId").getAsString();
+        String tradeId = jo.get("tradeId").getAsString();
+        Double totalAmount = jo.get("totalAmount").getAsDouble();
+        Double refundAmount = jo.get("refundAmount").getAsDouble();
 
         IOnlinePay onlinePay;
         if(payType.equals("alipay")) {
@@ -93,17 +107,13 @@ public class PaymentController {
             onlinePay = new WeChatPay();
         }
 
-        String tradeId = null;
-        Double totalAmount = 0d;
-        Double refundAmount = 0d;
-
-        String payResult = onlinePay.refund(orderId, tradeId, totalAmount, refundAmount);
+        String refundResult = onlinePay.refund(orderId, tradeId, totalAmount, refundAmount);
 
         PrintWriter writer = null;
         try{
             response.setContentType("application/json; charset=utf-8");
             writer = response.getWriter();
-            writer.print(payResult);
+            writer.print(refundResult);
         }catch(IOException e) {
             // TODO: Logging
         }finally {
@@ -263,17 +273,131 @@ public class PaymentController {
      */
     @RequestMapping(value = "/wepaynotify", method = RequestMethod.POST)
     public void receiveWepayNotify(@RequestBody String params, HttpServletRequest request, HttpServletResponse response) {
+        PrintWriter writer = null;
+        try{
+            response.setContentType("text/xml; charset=utf-8");
+            writer = response.getWriter();
+            // We should tell WeChat Pay server that we has received its request
+            writer.print("<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>");
+        }catch(IOException e) {
+            // TODO: Logging
+        }finally {
+            if (null != writer) {
+                writer.flush();
+                writer.close();
+            }
+        }
+        int contentLength = request.getContentLength();
+        if (contentLength < 0) {
+            // TODO: Logging
+        }
+        byte buffer[] = new byte[contentLength];
+        for (int i = 0; i < contentLength;) {
 
+            try {
+                int readlen = request.getInputStream().read(buffer, i, contentLength - i);
+                if (readlen == -1) {
+                    break;
+                }
+                i += readlen;
+            } catch (IOException e) {
+                // TODO: Logging
+            }
+        }
+        String charEncoding = request.getCharacterEncoding();
+        String notifyData;
+        try {
+            notifyData = new String(buffer, null == charEncoding ? "UTF-8" : charEncoding);
+            WXPay wxpay = PayUtil.getWXPay();
+
+            Map<String, String> notifyMap = WXPayUtil.xmlToMap(notifyData);
+
+            if (!wxpay.isPayResultNotifySignatureValid(notifyMap)) {
+                // TODO: Logging
+                // sign error
+            } else {
+                // TODO: Update order
+                // !Be careful: If the order is refunded, we should never update its status to paid when notified
+
+            }
+        } catch (UnsupportedEncodingException e) {
+            // TODO: Logging
+        } catch (Exception e) {
+            // TODO: Logging
+        }
     }
 
     /**
      * Receive payment callback from Alipay server
-     * @param params Request parameters, content type: application/json
      * @param request Request
      * @param response Response
      */
     @RequestMapping(value = "/alipaynotify", method = RequestMethod.POST)
-    public void receiveAlipayNotify(@RequestBody String params, HttpServletRequest request, HttpServletResponse response) {
+    public void receiveAlipayNotify(HttpServletRequest request, HttpServletResponse response) {
 
+        Map<String,String> params = new HashMap<>();
+        Map<String,String[]> requestParams = request.getParameterMap();
+        for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext();) {
+            String name = iter.next();
+            String[] values = requestParams.get(name);
+            String valueStr = "";
+            for (int i = 0; i < values.length; i++) {
+                valueStr = (i == values.length - 1) ? valueStr + values[i]
+                        : valueStr + values[i] + ",";
+            }
+
+            try {
+                valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
+                params.put(name, valueStr);
+            } catch (UnsupportedEncodingException e) {
+                // TODO: Logging
+            }
+        }
+
+        boolean signVerified = false;
+        String result;
+        try {
+            AlipayConfig alipayConfig = PayUtil.getAlipayConfig();
+            signVerified = AlipaySignature.rsaCheckV1(params, alipayConfig.getAlipayPublicKey(), alipayConfig.getCharset(), alipayConfig.getSignType());
+
+            if(signVerified) {
+                try {
+                    String outTradeNo = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"),"UTF-8");
+
+                    // Alipay trade number
+                    String tradeNo = new String(request.getParameter("trade_no").getBytes("ISO-8859-1"),"UTF-8");
+
+                    String trade_status = new String(request.getParameter("trade_status").getBytes("ISO-8859-1"),"UTF-8");
+
+                    if(trade_status.equals("TRADE_FINISHED") || trade_status.equals("TRADE_SUCCESS")){
+                        // Paid success
+                        //TODO:1.verify app_id 2.verify seller_id 3.verify out_trade_no 4.update order status
+                    }
+                } catch (UnsupportedEncodingException e) {
+                    // TODO: Logging
+
+                }
+                result = "success";
+
+            }else {
+                result = "fail";
+            }
+        } catch (AlipayApiException e) {
+            // TODO: Logging
+            result = "fail";
+        }
+        PrintWriter writer = null;
+        try{
+            response.setContentType("text/plain; charset=utf-8");
+            writer = response.getWriter();
+            writer.print(result);
+        }catch(IOException e) {
+            // TODO: Logging
+        }finally {
+            if (null != writer) {
+                writer.flush();
+                writer.close();
+            }
+        }
     }
 }
