@@ -38,10 +38,10 @@ public class Alipay implements IOnlinePay {
      * @return Return whatever the Alipay server return(A HTML <form>)
      */
     @Override
-    public String pay(String payWay, String orderId, Double payAmount) {
+    public String pay(String payWay, String orderId, double payAmount) {
         //******************************** Parameters Setting Start *********************************
         // Payment amount
-        String totalAmount = payAmount.toString();
+        String totalAmount = String.valueOf(payAmount);
         // Payment order name, required
         String subject = "Order Name";
         // Description of product, optional
@@ -131,7 +131,7 @@ public class Alipay implements IOnlinePay {
      * @return Return whatever the Alipay server return
      */
     @Override
-    public String refund(String orderId, String tradeId, Double totalAmount, Double refundAmount) {
+    public String refund(String orderId, String tradeId, double totalAmount, double refundAmount) {
         // To identify a refund request, multiple refunds for the same transaction are guaranteed to be unique.
         // If a partial refund is required, this parameter will be passed.
         String outRequestNO = orderId + System.currentTimeMillis() + Math.random() * 100;
@@ -141,7 +141,7 @@ public class Alipay implements IOnlinePay {
         AlipayTradeRefundModel model=new AlipayTradeRefundModel();
         if(null != orderId && !orderId.trim().equals("")) model.setOutTradeNo(orderId);
         if(null != tradeId && !tradeId.trim().equals("")) model.setTradeNo(tradeId);
-        model.setRefundAmount(refundAmount.toString());
+        model.setRefundAmount(String.valueOf(refundAmount));
         //model.setRefundReason(refundReason);
         model.setOutRequestNo(outRequestNO);
         alipayRequest.setBizModel(model);

@@ -15,7 +15,7 @@ public interface IOnlinePay {
      * @param payAmount   Amount Paid
      * @return Return whatever the third-party payment server return
      */
-    String pay(String payWay, String orderNumber, Double payAmount);
+    String pay(String payWay, String orderNumber, double payAmount);
 
     /**
      * Receive payment callback from third-party payment server if supported
@@ -35,7 +35,7 @@ public interface IOnlinePay {
      * @param refundAmount The amount of the refund(Partial refund supported if possible)
      * @return Return whatever the third-party payment server return
      */
-    String refund(String orderNumber,String tradeId, Double totalAmount,Double refundAmount);
+    String refund(String orderNumber,String tradeId, double totalAmount,double refundAmount);
 
     /**
      * Receive refund callback from third-party payment server if supported

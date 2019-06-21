@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -38,6 +39,7 @@ public class PaymentController {
 
     /**
      * Payment index page
+     *
      * @return Index .jsp page
      */
     @RequestMapping("/index")
@@ -47,6 +49,7 @@ public class PaymentController {
 
     /**
      * Payment request
+     *
      * @param params Request parameters, content type: application/json
      * @param response Response
      */
@@ -88,6 +91,7 @@ public class PaymentController {
 
     /**
      * Refund request
+     *
      * @param params Request parameters, content type: application/json
      * @param response Response
      */
@@ -126,6 +130,7 @@ public class PaymentController {
 
     /**
      * Transactions inquiry request
+     *
      * @param params Request parameters, content type: application/json
      * @param response Response
      */
@@ -161,6 +166,7 @@ public class PaymentController {
 
     /**
      * Transactions close request
+     *
      * @param params Request parameters, content type: application/json
      * @param response Response
      */
@@ -196,6 +202,7 @@ public class PaymentController {
 
     /**
      * Refund inquiry request
+     *
      * @param params Request parameters, content type: application/json
      * @param response Response
      */
@@ -232,6 +239,7 @@ public class PaymentController {
 
     /**
      * Download bill request
+     *
      * @param params Request parameters, content type: application/json
      * @param response Response
      */
@@ -267,26 +275,13 @@ public class PaymentController {
 
     /**
      * Receive payment callback from WeChat Pay server
-     * @param params Request parameters, content type: application/json
+     *
      * @param request Request
      * @param response Response
      */
-    @RequestMapping(value = "/wepaynotify", method = RequestMethod.POST)
-    public void receiveWepayNotify(@RequestBody String params, HttpServletRequest request, HttpServletResponse response) {
-        PrintWriter writer = null;
-        try{
-            response.setContentType("text/xml; charset=utf-8");
-            writer = response.getWriter();
-            // We should tell WeChat Pay server that we has received its request
-            writer.print("<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>");
-        }catch(IOException e) {
-            // TODO: Logging
-        }finally {
-            if (null != writer) {
-                writer.flush();
-                writer.close();
-            }
-        }
+    @RequestMapping(value = "/wxpay-notify", method = RequestMethod.POST)
+    public void receiveWepayNotify(HttpServletRequest request, HttpServletResponse response) {
+        String result = "failure";
         int contentLength = request.getContentLength();
         if (contentLength < 0) {
             // TODO: Logging
@@ -295,11 +290,11 @@ public class PaymentController {
         for (int i = 0; i < contentLength;) {
 
             try {
-                int readlen = request.getInputStream().read(buffer, i, contentLength - i);
-                if (readlen == -1) {
+                int readLen = request.getInputStream().read(buffer, i, contentLength - i);
+                if (readLen == -1) {
                     break;
                 }
-                i += readlen;
+                i += readLen;
             } catch (IOException e) {
                 // TODO: Logging
             }
@@ -316,8 +311,9 @@ public class PaymentController {
                 // TODO: Logging
                 // sign error
             } else {
-                // TODO: Update order
+                // TODO: Verify order, Update order
                 // !Be careful: If the order is refunded, we should never update its status to paid when notified
+                result = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
 
             }
         } catch (UnsupportedEncodingException e) {
@@ -325,16 +321,30 @@ public class PaymentController {
         } catch (Exception e) {
             // TODO: Logging
         }
+        PrintWriter writer = null;
+        try{
+            response.setContentType("text/xml; charset=utf-8");
+            writer = response.getWriter();
+            // We should tell WeChat Pay server that we has received its request
+            writer.print(result);
+        }catch(IOException e) {
+            // TODO: Logging
+        }finally {
+            if (null != writer) {
+                writer.flush();
+                writer.close();
+            }
+        }
     }
 
     /**
      * Receive payment callback from Alipay server
+     *
      * @param request Request
      * @param response Response
      */
-    @RequestMapping(value = "/alipaynotify", method = RequestMethod.POST)
+    @RequestMapping(value = "/alipay-notify", method = RequestMethod.POST)
     public void receiveAlipayNotify(HttpServletRequest request, HttpServletResponse response) {
-
         Map<String,String> params = new HashMap<>();
         Map<String,String[]> requestParams = request.getParameterMap();
         for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext();) {
@@ -346,45 +356,35 @@ public class PaymentController {
                         : valueStr + values[i] + ",";
             }
 
-            try {
-                valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
-                params.put(name, valueStr);
-            } catch (UnsupportedEncodingException e) {
-                // TODO: Logging
-            }
+            valueStr = new String(valueStr.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+            params.put(name, valueStr);
         }
 
         boolean signVerified = false;
-        String result;
+        String result = "fail";
         try {
             AlipayConfig alipayConfig = PayUtil.getAlipayConfig();
             signVerified = AlipaySignature.rsaCheckV1(params, alipayConfig.getAlipayPublicKey(), alipayConfig.getCharset(), alipayConfig.getSignType());
 
             if(signVerified) {
-                try {
-                    String outTradeNo = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"),"UTF-8");
+                String outTradeNo = new String(request.getParameter("out_trade_no").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
 
-                    // Alipay trade number
-                    String tradeNo = new String(request.getParameter("trade_no").getBytes("ISO-8859-1"),"UTF-8");
+                // Alipay trade number
+                String tradeNo = new String(request.getParameter("trade_no").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
 
-                    String trade_status = new String(request.getParameter("trade_status").getBytes("ISO-8859-1"),"UTF-8");
+                String trade_status = new String(request.getParameter("trade_status").getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
 
-                    if(trade_status.equals("TRADE_FINISHED") || trade_status.equals("TRADE_SUCCESS")){
-                        // Paid success
-                        //TODO:1.verify app_id 2.verify seller_id 3.verify out_trade_no 4.update order status
-                    }
-                } catch (UnsupportedEncodingException e) {
-                    // TODO: Logging
-
+                if(trade_status.equals("TRADE_FINISHED") || trade_status.equals("TRADE_SUCCESS")){
+                    // Paid success
+                    //TODO:1.verify app_id 2.verify seller_id 3.verify out_trade_no 4.update order status
                 }
                 result = "success";
 
             }else {
-                result = "fail";
+                // TODO: Logging
             }
         } catch (AlipayApiException e) {
             // TODO: Logging
-            result = "fail";
         }
         PrintWriter writer = null;
         try{
