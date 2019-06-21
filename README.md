@@ -3,7 +3,6 @@
 ## Overview
 
 This project is further Java encapsulation for various online payment channels, including **Alipay**, **WeChat Pay** so far.
-**WARNING: This project is still under development!**
 
 ## Tech Support
 
