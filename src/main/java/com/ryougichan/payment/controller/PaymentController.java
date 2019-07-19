@@ -24,7 +24,6 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 @Controller
@@ -346,6 +345,7 @@ public class PaymentController {
     @RequestMapping(value = "/alipay-notify", method = RequestMethod.POST)
     public void receiveAlipayNotify(HttpServletRequest request, HttpServletResponse response) {
         Map<String,String> params = new HashMap<>();
+        /* Add this if params' items decoded error
         Map<String,String[]> requestParams = request.getParameterMap();
         for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext();) {
             String name = iter.next();
@@ -359,6 +359,7 @@ public class PaymentController {
             valueStr = new String(valueStr.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
             params.put(name, valueStr);
         }
+         */
 
         boolean signVerified = false;
         String result = "fail";
