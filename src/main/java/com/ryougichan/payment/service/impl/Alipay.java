@@ -3,7 +3,6 @@ package com.ryougichan.payment.service.impl;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.domain.*;
-import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.*;
 import com.alipay.api.response.*;
 import com.ryougichan.payment.entity.AlipayConfig;
@@ -11,7 +10,6 @@ import com.ryougichan.payment.service.IOnlinePay;
 import com.ryougichan.payment.util.PayUtil;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 public class Alipay implements IOnlinePay {
 
@@ -150,17 +148,9 @@ public class Alipay implements IOnlinePay {
         try {
             alipayResponse = client.execute(alipayRequest);
             if(alipayResponse.isSuccess()) {
-
-                Map<String, String> resData = alipayResponse.getParams();
-                boolean signVerified = AlipaySignature.rsaCheckV1(resData, alipayConfig.getAlipayPublicKey(),alipayConfig.getCharset(), alipayConfig.getSignType());
-
-                if(!signVerified) {
-                    // Verification failed
-                    // TODO: Logging
-                } else {
-                    // Refund succeed
-                    // TODO: Modifying order status or other relative values
-                }
+                // No need to check sign anymore(It is done in execute() method)
+                // Refund succeed
+                // TODO: Modifying order status or other relative values
                 return("succeed");
             }else {
                 // TODO: Logging
