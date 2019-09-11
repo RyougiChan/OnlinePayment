@@ -38,9 +38,9 @@ This project is further Java encapsulation for various online payment channels, 
 
 - [alipay-sdk](https://docs.open.alipay.com/54/103419)
 - [wxpay-sdk](https://pay.weixin.qq.com/wiki/doc/api/external/native.php?chapter=11_1)
-    - [httpclient](https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient)
-    - [httpcore](https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore)
-    - [slf4j-api](https://mvnrepository.com/artifact/org.slf4j/slf4j-api)
+  - [httpclient](https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient)
+  - [httpcore](https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore)
+  - [slf4j-api](https://mvnrepository.com/artifact/org.slf4j/slf4j-api)
 
 ### 2. Initial Configuration
 
@@ -68,7 +68,7 @@ class Program {
         String payWay = "PC";
         String orderNumber = String.format("100%s", System.currentTimeMillis());
         double payAmount = 0.01;
-        
+
         // Call payment
         String payResult = onlinePay.pay(payWay, orderNumber, payAmount);
     }
@@ -77,13 +77,18 @@ class Program {
 
 ## Developer Tips
 
+> Something about code style and stratification
+
+  We add Spring MVC here but not actually use it, that's because we wanna provide a more generic implementation.
+  So we recommend that you should rewrite the service layer according to your needing.
+
 > `java.lang.ClassNotFoundException: org.springframework.web.context.ContextLoaderListener`
 
-This is a Exception of Tomcat server.
-
-**Solution:**
-
-Add dependencies to **deployment** assembly. [See Also](https://stackoverflow.com/questions/6210757/java-lang-classnotfoundexception-org-springframework-web-context-contextloaderl)
+  This is a Exception of Tomcat server.
+  
+  **Solution:**
+  
+  Add dependencies to **deployment** assembly. [See Also](https://stackoverflow.com/questions/6210757/java-lang-classnotfoundexception-org-springframework-web-context-contextloaderl)
 
 ## Declaration
 
