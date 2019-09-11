@@ -57,18 +57,20 @@ import com.ryougichan.payment.service.impl.WeChatPay;
 
 class Program {
     public static void main(String[] args){
-      IOnlinePay onlinePay;
-      // Initial Alipay by using:
-      onlinePay = new Alipay();
-      // Initial WeChat Pay by using:
-      // onlinePay = new WeChatPay();
-      
-      String payWay = "PC";
-      String orderNumber = String.format("100%s", System.currentTimeMillis());
-      double payAmount = 0.01;
-          
-      // Call payment
-      String payResult = onlinePay.pay(payWay, orderNumber, payAmount);
+        // !! This code is used as a illustration, there are better ways,
+        //    using IoC feature, for example.
+        IOnlinePay onlinePay;
+        // Initial Alipay by using:
+        onlinePay = new Alipay();
+        // Initial WeChat Pay by using:
+        // onlinePay = new WeChatPay();
+
+        String payWay = "PC";
+        String orderNumber = String.format("100%s", System.currentTimeMillis());
+        double payAmount = 0.01;
+        
+        // Call payment
+        String payResult = onlinePay.pay(payWay, orderNumber, payAmount);
     }
 }
 ```

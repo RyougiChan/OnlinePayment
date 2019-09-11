@@ -7,11 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="73588f71-d34c-47f1-b991-abf3621737da" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_bouncycastle_bcprov_jdk15on_1_62.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlinePayment.iml" beforeDir="false" afterPath="$PROJECT_DIR$/OnlinePayment.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/controller/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/util/PayUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/util/PayUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <list id="6bbf00f6-c449-475e-9033-728f9c895c74" name="Adding Alipay and WeChat Pay SDK dependence as well as their own config file" comment="Adding Alipay and WeChat Pay SDK dependence as well as their own config file" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -29,7 +25,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/ryougichan/payment/controller/PaymentController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="741">
@@ -37,6 +33,21 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="175">
+                <caret line="59" column="73" lean-forward="true" selection-start-line="59" selection-start-column="73" selection-end-line="59" selection-end-column="73" />
+                <folding>
+                  <element signature="imports" expanded="true" />
+                </folding>
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -128,10 +139,10 @@
         <option value="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/entity/WeChatPayConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/IOnlinePay.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/impl/WeChatPay.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/service/impl/Alipay.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/util/PayUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ryougichan/payment/controller/PaymentController.java" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -148,7 +159,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="206" />
     <option name="y" value="33" />
     <option name="width" value="1669" />
@@ -335,7 +346,7 @@
       <workItem from="1561080859687" duration="4984000" />
       <workItem from="1563756832066" duration="1866000" />
       <workItem from="1563958451691" duration="611000" />
-      <workItem from="1568163424259" duration="2657000" />
+      <workItem from="1568163424259" duration="3585000" />
     </task>
     <task id="LOCAL-00001" summary="Adding Alipay and WeChat Pay SDK dependence as well as their own config file">
       <created>1560483474535</created>
@@ -348,13 +359,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83430000" />
+    <option name="totallyTimeSpent" value="84358000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="206" y="33" width="1669" height="1000" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4989605" visible="true" weight="0.24922311" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4989605" visible="true" weight="0.21375267" />
       <window_info id="Structure" order="1" sideWeight="0.5010395" side_tool="true" weight="0.2563966" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -560,19 +571,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="327">
-            <caret line="51" column="42" selection-start-line="51" selection-start-column="42" selection-end-line="51" selection-end-column="42" />
-            <folding>
-              <element signature="imports" expanded="true" />
-            </folding>
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/lib/alipay-sdk-java.jar!/com/alipay/api/AlipayClient.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -632,6 +630,19 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="175">
+            <caret line="59" column="73" lean-forward="true" selection-start-line="59" selection-start-column="73" selection-end-line="59" selection-end-column="73" />
+            <folding>
+              <element signature="imports" expanded="true" />
+            </folding>
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
