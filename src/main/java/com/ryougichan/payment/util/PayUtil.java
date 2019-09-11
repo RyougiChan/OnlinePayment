@@ -3,13 +3,20 @@ package com.ryougichan.payment.util;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.github.wxpay.sdk.WXPay;
+import com.github.wxpay.sdk.WXPayUtil;
 import com.google.gson.Gson;
 import com.ryougichan.payment.entity.AlipayConfig;
 import com.ryougichan.payment.entity.WeChatPayConfig;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.StandardCharsets;
+import java.security.Security;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
+import java.util.Map;
 
 public class PayUtil {
 
@@ -51,6 +58,65 @@ public class PayUtil {
             ip = request.getRemoteAddr();
         }
         return ip;
+    }
+
+
+    /**
+     * Access
+     *
+     * @param request A javax.servlet.http.HttpServletRequest object
+     * @return
+     * @throws Exception
+     */
+    public static Map<String, String> getWeChatPayNotifyData(HttpServletRequest request) throws Exception {
+        int contentLength = request.getContentLength();
+        if (contentLength < 0) {
+            return null;
+        }
+        byte[] buffer = new byte[contentLength];
+        for (int i = 0; i < contentLength;) {
+            int readLen = request.getInputStream().read(buffer, i, contentLength - i);
+            if (readLen == -1) {
+                break;
+            }
+            i += readLen;
+        }
+
+        String charEncoding = request.getCharacterEncoding();
+        String notifyData;
+        Map<String, String> notifyMap;
+        notifyData = new String(buffer, null == charEncoding ? "UTF-8" : charEncoding);
+        notifyMap = WXPayUtil.xmlToMap(notifyData);
+        return notifyMap;
+    }
+
+    private static final String ALGORITHM_MODE_PADDING = "AES/ECB/PKCS7Padding";
+    /**
+     * AES decryption
+     *
+     * @param base64Data Encrypted data
+     * @param key        WechatPay secret key
+     * @return
+     * @throws Exception
+     */
+    public static String aesDecryptData(String base64Data, String key) throws Exception {
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+        Cipher cipher = Cipher.getInstance(ALGORITHM_MODE_PADDING, "BC");
+        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(WXPayUtil.MD5(key).toLowerCase().getBytes(), "AES"));
+        return new String(cipher.doFinal(base64Decode8859(base64Data).getBytes(StandardCharsets.ISO_8859_1)), StandardCharsets.UTF_8);
+    }
+
+    /**
+     * Base64 decoder
+     *
+     * @param source Base64 string characters
+     * @return Base64 decoded result
+     */
+    public static String base64Decode8859(final String source) {
+        String result;
+        final Base64.Decoder decoder = Base64.getDecoder();
+        result = new String(decoder.decode(source), StandardCharsets.ISO_8859_1);
+        return result;
     }
 
     /**

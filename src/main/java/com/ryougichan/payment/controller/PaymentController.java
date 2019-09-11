@@ -3,6 +3,7 @@ package com.ryougichan.payment.controller;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.github.wxpay.sdk.WXPay;
+import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -13,6 +14,7 @@ import com.ryougichan.payment.service.impl.Alipay;
 import com.ryougichan.payment.service.impl.WeChatPay;
 import com.ryougichan.payment.util.PayUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -30,7 +31,7 @@ import java.util.Map;
 @RequestMapping("/payment")
 public class PaymentController {
 
-    Gson gson;
+    private Gson gson;
 
     public PaymentController() {
         gson = PayUtil.getGson();
@@ -53,7 +54,7 @@ public class PaymentController {
      * @param response Response
      */
     @RequestMapping(value = "/pay", method = RequestMethod.POST)
-    public void pay(@RequestBody String params, HttpServletResponse response) {
+    public void pay(@RequestBody String params, HttpServletResponse response) throws IOException {
         JsonObject paramJson = gson.fromJson(params, JsonObject.class);
         String payType = paramJson.get("payType").getAsString();
         String payWay = paramJson.get("payWay").getAsString();
@@ -71,19 +72,7 @@ public class PaymentController {
         String payResult = onlinePay.pay(payWay, orderId, 0.01);
 
         if(null != payResult) {
-            PrintWriter writer = null;
-            try{
-                response.setContentType("text/plain; charset=utf-8");
-                writer = response.getWriter();
-                writer.print(payResult);
-            }catch(IOException e) {
-                // TODO: Logging
-            }finally {
-                if (null != writer) {
-                    writer.flush();
-                    writer.close();
-                }
-            }
+            response.getWriter().append(payResult);
         }
     }
 
@@ -95,13 +84,13 @@ public class PaymentController {
      * @param response Response
      */
     @RequestMapping(value = "/refund", method = RequestMethod.POST)
-    public void refund(@RequestBody String params, HttpServletResponse response) {
+    public void refund(@RequestBody String params, HttpServletResponse response) throws IOException {
         JsonObject jo = gson.fromJson(params, JsonObject.class);
         String payType = jo.get("payType").getAsString();
         String orderId = jo.get("orderId").getAsString();
         String tradeId = jo.get("tradeId").getAsString();
-        Double totalAmount = jo.get("totalAmount").getAsDouble();
-        Double refundAmount = jo.get("refundAmount").getAsDouble();
+        double totalAmount = jo.get("totalAmount").getAsDouble();
+        double refundAmount = jo.get("refundAmount").getAsDouble();
 
         IOnlinePay onlinePay;
         if(payType.equals("alipay")) {
@@ -112,19 +101,7 @@ public class PaymentController {
 
         String refundResult = onlinePay.refund(orderId, tradeId, totalAmount, refundAmount);
 
-        PrintWriter writer = null;
-        try{
-            response.setContentType("application/json; charset=utf-8");
-            writer = response.getWriter();
-            writer.print(refundResult);
-        }catch(IOException e) {
-            // TODO: Logging
-        }finally {
-            if (null != writer) {
-                writer.flush();
-                writer.close();
-            }
-        }
+        response.getWriter().append(refundResult);
     }
 
     /**
@@ -134,7 +111,7 @@ public class PaymentController {
      * @param response Response
      */
     @RequestMapping(value = "/query", method = RequestMethod.POST)
-    public void query(@RequestBody String params, HttpServletResponse response) {
+    public void query(@RequestBody String params, HttpServletResponse response) throws IOException {
         JsonObject jo = gson.fromJson(params, JsonObject.class);
         String payType = jo.get("payType").getAsString();
         String tradeId = jo.get("tradeId").getAsString();
@@ -148,19 +125,7 @@ public class PaymentController {
         }
         String payResult = onlinePay.query(orderId, tradeId);
 
-        PrintWriter writer = null;
-        try{
-            response.setContentType("application/json; charset=utf-8");
-            writer = response.getWriter();
-            writer.print(payResult);
-        }catch(IOException e) {
-            // TODO: Logging
-        }finally {
-            if (null != writer) {
-                writer.flush();
-                writer.close();
-            }
-        }
+        response.getWriter().append(payResult);
     }
 
     /**
@@ -170,7 +135,7 @@ public class PaymentController {
      * @param response Response
      */
     @RequestMapping(value = "/close", method = RequestMethod.POST)
-    public void close(@RequestBody String params, HttpServletResponse response) {
+    public void close(@RequestBody String params, HttpServletResponse response) throws IOException {
         JsonObject jo = gson.fromJson(params, JsonObject.class);
         String payType = jo.get("payType").getAsString();
         String tradeId = jo.get("tradeId").getAsString();
@@ -184,19 +149,7 @@ public class PaymentController {
         }
         String payResult = onlinePay.close(orderId, tradeId);
 
-        PrintWriter writer = null;
-        try{
-            response.setContentType("application/json; charset=utf-8");
-            writer = response.getWriter();
-            writer.print(payResult);
-        }catch(IOException e) {
-            // TODO: Logging
-        }finally {
-            if (null != writer) {
-                writer.flush();
-                writer.close();
-            }
-        }
+        response.getWriter().append(payResult);
     }
 
     /**
@@ -206,7 +159,7 @@ public class PaymentController {
      * @param response Response
      */
     @RequestMapping(value = "/refundquery", method = RequestMethod.POST)
-    public void refundQuery(@RequestBody String params, HttpServletResponse response) {
+    public void refundQuery(@RequestBody String params, HttpServletResponse response) throws IOException {
         JsonObject jo = gson.fromJson(params, JsonObject.class);
         String payType = jo.get("payType").getAsString();
         String tradeId = jo.get("tradeId").getAsString();
@@ -221,19 +174,7 @@ public class PaymentController {
         }
         String payResult = onlinePay.refundQuery(orderId, tradeId, refundId);
 
-        PrintWriter writer = null;
-        try{
-            response.setContentType("application/json; charset=utf-8");
-            writer = response.getWriter();
-            writer.print(payResult);
-        }catch(IOException e) {
-            // TODO: Logging
-        }finally {
-            if (null != writer) {
-                writer.flush();
-                writer.close();
-            }
-        }
+        response.getWriter().append(payResult);
     }
 
     /**
@@ -243,7 +184,7 @@ public class PaymentController {
      * @param response Response
      */
     @RequestMapping(value = "/downloadbill", method = RequestMethod.POST)
-    public void downloadBill(@RequestBody String params, HttpServletResponse response) {
+    public void downloadBill(@RequestBody String params, HttpServletResponse response) throws IOException {
         JsonObject jo = gson.fromJson(params, JsonObject.class);
         String payType = jo.get("payType").getAsString();
         String billType = jo.get("billType").getAsString();
@@ -257,19 +198,7 @@ public class PaymentController {
         }
         String result = onlinePay.downloadBill(billDate, billType);
 
-        PrintWriter writer = null;
-        try{
-            response.setContentType("application/json; charset=utf-8");
-            writer = response.getWriter();
-            writer.print(result);
-        }catch(IOException e) {
-            // TODO: Logging
-        }finally {
-            if (null != writer) {
-                writer.flush();
-                writer.close();
-            }
-        }
+        response.getWriter().append(result);
     }
 
     /**
@@ -279,13 +208,13 @@ public class PaymentController {
      * @param response Response
      */
     @RequestMapping(value = "/wxpay-notify", method = RequestMethod.POST)
-    public void receiveWepayNotify(HttpServletRequest request, HttpServletResponse response) {
+    public void receiveWepayNotify(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String result = "failure";
         int contentLength = request.getContentLength();
         if (contentLength < 0) {
             // TODO: Logging
         }
-        byte buffer[] = new byte[contentLength];
+        byte[] buffer = new byte[contentLength];
         for (int i = 0; i < contentLength;) {
 
             try {
@@ -320,20 +249,8 @@ public class PaymentController {
         } catch (Exception e) {
             // TODO: Logging
         }
-        PrintWriter writer = null;
-        try{
-            response.setContentType("text/xml; charset=utf-8");
-            writer = response.getWriter();
-            // We should tell WeChat Pay server that we has received its request
-            writer.print(result);
-        }catch(IOException e) {
-            // TODO: Logging
-        }finally {
-            if (null != writer) {
-                writer.flush();
-                writer.close();
-            }
-        }
+
+        response.getWriter().append(result);
     }
 
     /**
@@ -343,23 +260,8 @@ public class PaymentController {
      * @param response Response
      */
     @RequestMapping(value = "/alipay-notify", method = RequestMethod.POST)
-    public void receiveAlipayNotify(HttpServletRequest request, HttpServletResponse response) {
+    public void receiveAlipayNotify(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String,String> params = new HashMap<>();
-        /* Add this if params' items decoded error
-        Map<String,String[]> requestParams = request.getParameterMap();
-        for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext();) {
-            String name = iter.next();
-            String[] values = requestParams.get(name);
-            String valueStr = "";
-            for (int i = 0; i < values.length; i++) {
-                valueStr = (i == values.length - 1) ? valueStr + values[i]
-                        : valueStr + values[i] + ",";
-            }
-
-            valueStr = new String(valueStr.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
-            params.put(name, valueStr);
-        }
-         */
 
         boolean signVerified = false;
         String result = "fail";
@@ -387,18 +289,69 @@ public class PaymentController {
         } catch (AlipayApiException e) {
             // TODO: Logging
         }
-        PrintWriter writer = null;
-        try{
-            response.setContentType("text/plain; charset=utf-8");
-            writer = response.getWriter();
-            writer.print(result);
-        }catch(IOException e) {
+
+        response.getWriter().append(result);
+    }
+
+    /**
+     * Receive refund notification callback from Wxpay server
+     *
+     * @param request Request
+     */
+    @RequestMapping(value = "/wxpay-refund-notify", method = RequestMethod.POST)
+    public void receiveWxpayRefundNotify(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String result = "failure";
+        try {
+            Map<String, String> notifyMap = PayUtil.getWeChatPayNotifyData(request);
             // TODO: Logging
-        }finally {
-            if (null != writer) {
-                writer.flush();
-                writer.close();
+            if (CollectionUtils.isEmpty(notifyMap)) {
+                // TODO: Logging
+                response.getWriter().append(result);
+                return;
             }
+
+            String returnCode = notifyMap.get("return_code");
+            if (!WXPayConstants.SUCCESS.equals(returnCode)) {
+                // TODO: Logging
+                response.getWriter().append(result);
+                return;
+            }
+
+            String reqInfo = notifyMap.get("req_info");
+
+            String reqInfoString;
+            Map<String, String> aesMap = new HashMap<>();
+            WeChatPayConfig weChatPayConfig = PayUtil.getWeChatPayConfig();
+            try {
+                reqInfoString = PayUtil.aesDecryptData(reqInfo, weChatPayConfig.getKey());
+                aesMap = WXPayUtil.xmlToMap(reqInfoString);
+            } catch (Exception e) {
+                // TODO: Logging
+            }
+
+            if (aesMap.size() < 1) {
+                // TODO: Logging
+            }
+
+            // Refund status: SUCCESS-Refund successfully、CHANGE-Refund encounter error、REFUNDCLOSE—Refund closed
+            String refundStatus = aesMap.get("refund_status");
+
+            if (!WXPayConstants.SUCCESS.equals(refundStatus)) {
+                // Refund failed
+                // TODO: Logging
+            } else {
+                String outTradeNo = aesMap.get("out_trade_no");
+                String refundId = aesMap.get("refund_id");
+                String refundFee = aesMap.get("refund_fee");
+                String successTime = aesMap.get("success_time");
+
+                // TODO: Change trade order status and so no
+
+                result = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
+            }
+        } catch (Exception e) {
+            // TODO: Logging
         }
+        response.getWriter().append(result);
     }
 }

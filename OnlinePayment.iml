@@ -31,5 +31,6 @@
     <orderEntry type="library" name="alipay-sdk-java" level="project" />
     <orderEntry type="library" name="wxpay-sdk-3.0.9" level="project" />
     <orderEntry type="library" name="gson-2.8.5" level="project" />
+    <orderEntry type="library" name="org.bouncycastle:bcprov-jdk15on:1.62" level="project" />
   </component>
 </module>
