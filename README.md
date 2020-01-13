@@ -4,6 +4,8 @@
 
 This project is further Java encapsulation for various online payment channels, including **Alipay**, **WeChat Pay** so far.
 
+**ALERT!!** The code here is just a simple getting start guide with little security consideration. So **DO NOT** use this code in your production environment directly.
+
 ## Tech Support
 
 - Java
